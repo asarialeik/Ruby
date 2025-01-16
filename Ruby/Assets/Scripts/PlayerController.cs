@@ -28,15 +28,16 @@ public class PlayerController : MonoBehaviour
     //Projectiles
     public GameObject projectilePrefab;
 
+    //Music
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         //Animations
         animator = GetComponent<Animator>();
 
-
         talkAction.Enable();
-
 
         //Movement
         MoveAction.Enable();
@@ -44,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
         //Health
         currentHealth = maxHealth;
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -123,8 +126,16 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, moveDirection, 1.5f, LayerMask.GetMask("NPC"));
         if (hit.collider != null)
         {
-
+            NonPlayableCharacter character = hit.collider.GetComponent<NonPlayableCharacter>();
+            if (character != null)
+            {
+                UIHandler.instance.DisplayDialogue();
+            }
         }
     }
 
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
 }
