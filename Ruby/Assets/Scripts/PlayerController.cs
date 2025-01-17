@@ -29,7 +29,11 @@ public class PlayerController : MonoBehaviour
     public GameObject projectilePrefab;
 
     //Music
-    private AudioSource audioSource;
+    public AudioSource audioSource;
+    public AudioSource playerWalking;
+    public AudioClip playerWalkSound;
+    public AudioSource proyectileAudio;
+    public AudioSource hit;
 
     // Start is called before the first frame update
     void Start()
@@ -45,8 +49,6 @@ public class PlayerController : MonoBehaviour
 
         //Health
         currentHealth = maxHealth;
-
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -75,6 +77,14 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection.Set(move.x, move.y);
             moveDirection.Normalize();
+            if (!playerWalking.isPlaying)
+            {
+                playerWalking.PlayOneShot(playerWalkSound, 1f);
+            }
+        }
+        else
+        {
+            playerWalking.Stop();
         }
         animator.SetFloat("Look X", moveDirection.x);
         animator.SetFloat("Look Y", moveDirection.y);
@@ -103,6 +113,7 @@ public class PlayerController : MonoBehaviour
 
 
             animator.SetTrigger("Hit");
+            hit.Play();
 
             isInvincible = true;
             damageCooldown = timeInvincible;
@@ -119,6 +130,7 @@ public class PlayerController : MonoBehaviour
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         projectile.Launch(moveDirection, 300);
         animator.SetTrigger("Launch");
+        proyectileAudio.Play();
     }
 
     void FindFriend()

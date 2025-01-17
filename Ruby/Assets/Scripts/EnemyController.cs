@@ -7,27 +7,49 @@ public class EnemyController : MonoBehaviour
     bool broken = true;
     Animator animator;
     public float changeTime = 3.0f;
-    float timer;
+    float verticalTimer;
+    float horizontalTimer;
     int direction = 1;
     private float speed = 1.0f;
     public bool vertical = true;
     Rigidbody2D rigidbody2d;
+    public AudioSource audio;
+    public AudioSource hit;
+    public AudioSource questComplete;
+    public ParticleSystem smokeEffect;
 
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource> ();
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        timer = changeTime;
+        verticalTimer = changeTime;
+        horizontalTimer = changeTime;
     }
 
     void Update()
     {
-        timer -= Time.deltaTime;
-        if (timer < 0)
+        if (vertical == true)
+        {
+            verticalTimer -= Time.deltaTime;
+        }
+        else if (vertical == false)
+        {
+            horizontalTimer -= Time.deltaTime;
+        }
+
+        if (verticalTimer < 0 && vertical == true)
         {
             direction = -direction;
-            timer = changeTime;
+            verticalTimer = changeTime;
+            vertical = false;
+        }
+
+        if (horizontalTimer < 0 && vertical == false)
+        {
+            vertical = true;
+            horizontalTimer = changeTime;
         }
     }
 
@@ -66,8 +88,12 @@ public class EnemyController : MonoBehaviour
 
     public void Fix()
     {
+        smokeEffect.Stop();
         broken = false;
         rigidbody2d.simulated = false;
         animator.SetTrigger("Fixed");
+        audio.Stop();
+        hit.Play();
+        questComplete.Play();
     }
 }
