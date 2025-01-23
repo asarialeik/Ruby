@@ -9,6 +9,7 @@ public class UIHandler : MonoBehaviour
     private VisualElement m_NonPlayerDialogue;
     private Label m_NonPlayerDialogueText;
     private bool talkedToNpc = false;
+    private bool NPCGotTired = false;
     private float m_TimerDisplay;
     public static UIHandler instance { get; private set; }
     private VisualElement m_Healthbar;
@@ -51,9 +52,15 @@ public class UIHandler : MonoBehaviour
    {
         m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
         m_TimerDisplay = displayTime;
-        if (talkedToNpc == true)
+
+        if (NPCGotTired == true)
+        {
+            m_NonPlayerDialogueText.text = "...";
+        }
+        else if (talkedToNpc == true)
         {
             m_NonPlayerDialogueText.text = "Come now, go fix those walkig cans, sweetcheeks.";
+            NPCGotTired = true;
         }
         else
         {
