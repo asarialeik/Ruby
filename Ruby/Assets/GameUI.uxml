@@ -1,5 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="NPCDialogue" src="project://database/Assets/NPCDialogue.uxml?fileID=9197481963319205126&amp;guid=8bec3a9988714734ba87220d3713104b&amp;type=3#NPCDialogue" />
+    <ui:Template name="NPCDialogue" src="project://database/Assets/NPCDialogue.uxml?fileID=9197481963319205126&amp;guid=87ab237c3215ef4408964c2eac1f51e9&amp;type=3#NPCDialogue" />
+    <ui:Template name="EnemyCount" src="project://database/Assets/EnemyCount.uxml?fileID=9197481963319205126&amp;guid=80ec89044eab95443a92667856cf648a&amp;type=3#EnemyCount" />
     <ui:VisualElement name="HealthBarBackground" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/Art/Ruby/UI/UIHealthFrame.png?fileID=21300000&amp;guid=e04807cd45105ec409b00463fe6ab7b1&amp;type=3#UIHealthFrame&quot;); width: 475px; height: 194px; -unity-background-scale-mode: scale-to-fit; flex-direction: column; flex-shrink: 1;">
         <ui:VisualElement name="CharacterPortrait" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Art/SugarLand/UI/CharacterPortrait.png?fileID=21300000&amp;guid=e8af26c6841fc05459ccaf23dbab2b63&amp;type=3#CharacterPortrait&quot;); -unity-background-scale-mode: scale-to-fit; position: absolute; height: 165px; top: 5px; width: 318px; left: -39px;" />
         <ui:VisualElement name="HealthBarContainer" style="flex-grow: 1; position: absolute; height: 66px; width: 233px; top: 58px; left: 199px;">
@@ -7,4 +8,5 @@
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:Instance template="NPCDialogue" name="NPCDialogue" style="position: absolute; left: 10%; top: 70%; right: 10%; bottom: 0; -unity-background-scale-mode: stretch-to-fill;" />
+    <ui:Instance template="EnemyCount" name="EnemyCount" style="position: absolute; height: 63px; width: 113px; left: 1338px; top: 12px;" />
 </ui:UXML>

@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
     public AudioSource hit;
     public AudioSource questComplete;
     public ParticleSystem smokeEffect;
+    public EnemiesContainer enemiesContainer;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class EnemyController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         verticalTimer = changeTime;
         horizontalTimer = changeTime;
+        enemiesContainer.AddEnemy();
     }
 
     void Update()
@@ -95,5 +97,6 @@ public class EnemyController : MonoBehaviour
         audio.Stop();
         hit.Play();
         questComplete.Play();
+        enemiesContainer.RemoveEnemy();
     }
 }

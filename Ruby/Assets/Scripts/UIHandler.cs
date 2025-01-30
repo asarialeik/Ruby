@@ -5,30 +5,38 @@ using UnityEngine.UIElements;
 
 public class UIHandler : MonoBehaviour
 {
+    public static UIHandler instance { get; private set; }
     public float displayTime = 4.0f;
     private VisualElement m_NonPlayerDialogue;
     private Label m_NonPlayerDialogueText;
     private bool talkedToNpc = false;
     private bool NPCGotTired = false;
     private float m_TimerDisplay;
-    public static UIHandler instance { get; private set; }
+    private bool allEnemiesFixed = false;
     private VisualElement m_Healthbar;
+    private VisualElement m_EnemyCount;
+    private Label m_EnemyCountText;
 
     private void Awake()
     {
         instance = this;
-    }
-
-    void Start()
-    {
         UIDocument uiDocument = GetComponent<UIDocument>();
         
         m_Healthbar = uiDocument.rootVisualElement.Q<VisualElement>("HealthBar");
         SetHealthValue(1.0f);
+
         m_NonPlayerDialogue = uiDocument.rootVisualElement.Q<VisualElement>("NPCDialogue");
         m_NonPlayerDialogue.style.display = DisplayStyle.None;
         m_TimerDisplay = -1.0f;
         m_NonPlayerDialogueText = m_NonPlayerDialogue.Q<Label>("Text");
+        m_EnemyCount = uiDocument.rootVisualElement.Q<VisualElement>("EnemyCount");
+        m_EnemyCountText = m_EnemyCount.Q<Label>("EnemiesText");
+        m_EnemyCount.style.display = DisplayStyle.None;
+    }
+
+    void Start()
+    {
+        
     }
 
     public void SetHealthValue(float percentage)
@@ -52,7 +60,8 @@ public class UIHandler : MonoBehaviour
    {
         m_NonPlayerDialogue.style.display = DisplayStyle.Flex;
         m_TimerDisplay = displayTime;
-
+        m_EnemyCount.style.display = DisplayStyle.Flex;
+        
         if (NPCGotTired == true)
         {
             m_NonPlayerDialogueText.text = "...";
@@ -66,5 +75,9 @@ public class UIHandler : MonoBehaviour
         {
             talkedToNpc = true;
         }
+   }
+   public void EnemyAmountDisplay(int enemiesAmount)
+   {
+        m_EnemyCountText.text = "Broken Robots: " + enemiesAmount.ToString("00");
    }
 }
